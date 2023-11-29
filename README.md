@@ -1,7 +1,8 @@
 ## Wireframe
-![Tic-Tac-Toe Wireframe](../../../Pictures/wireframe1.jpg)
+![Tic Tac Toe Wireframe](wireframe-sketch.jpg)
 
-## Tic-Tac-Toe Pseudocode
+
+## Pseudocode
 
 1. Create a 3x3 grid to represent the tic-tac-toe board.
 2. Create two players, X and O.
