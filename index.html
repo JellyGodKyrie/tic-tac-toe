@@ -4,9 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tic Tac Toe</title>
+    <link rel="stylesheet" href="css/main.css">
     <script defer src="js/main.js"></script>
 </head>
 <body>
-    
+    <header>Tic Tac Toe</header>
+    <div class="start-game">
+        <h2>Choose your character</h2>
+        <button id="X">X</button>
+        <button id="O">O</button>
+    </div>
+    <div class="turn-container">
+        <h3>Turn For</h3>
+        <div class="turn-box align">X</div>
+        <div class="turn-box align">O</div>
+        <div class="bg"></div>
+    </div>
+    <!-- <h1 id="message">X's turn</h1> -->
+    <div id="board">
+        <div class="cell" id="cell0"></div>
+        <div class="cell" id="cell1"></div>
+        <div class="cell" id="cell2"></div>
+        <div class="cell" id="cell3"></div>
+        <div class="cell" id="cell4"></div>
+        <div class="cell" id="cell5"></div>
+        <div class="cell" id="cell6"></div>
+        <div class="cell" id="cell7"></div>
+        <div class="cell" id="cell8"></div>
+    </div>
+    <div class="player">PLAYER</div>
+    <div class="opponent">CPU</div>
+    <button id="restart">PLAY AGAIN</button>
 </body>
+
 </html>

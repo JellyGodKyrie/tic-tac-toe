@@ -1,0 +1,95 @@
+* {
+box-sizing: border-box;
+}
+  
+body {
+height: 100vh;
+margin: 0;
+font-family: 'Roboto Mono', monospace;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+}
+
+header {
+    font-size: 4vmin;
+    color: darkgray;
+    letter-spacing: 1vmin;
+}
+
+h1 {
+    color: grey;
+    font-size: 3vmin;
+}
+  
+
+/* Tic Tac Toe Board */
+#board {
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 5px;
+  width: 300px;
+  height: 300px;
+  margin: 0 auto;
+}
+
+/* Tic Tac Toe Cells */
+.cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 48px;
+  background-color: #fff;
+  border: 2px solid #000;
+  cursor: pointer;
+}
+
+#restart {
+    margin-top: 20px;
+    font-size: 2vmin;
+    color: darkgray;
+    letter-spacing: 1vmin;
+}
+
+.align {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.turn-container {
+    height: 16%;
+    width: 22%;
+    margin-bottom: 3vmin;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    position: relative;
+}
+
+.turn-container h3 {
+    font-size: 3vmin;
+    color: darkgray;
+    letter-spacing: 1vmin;
+    grid-column-start: 1;
+    grid-column-end: 3;
+}
+
+.turn-container .turn-box {
+    border: 2px solid black;
+    font-size: 2vmin;
+}
+
+.bg {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 90px;
+    height: 38px;
+    background-color: red;
+    z-index: -1;
+}
