@@ -1,11 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Bubbles&family=Suez+One&display=swap');
+
 * {
 box-sizing: border-box;
 }
+
+@keyframes spin {
+	0% {
+		opacity: 0;
+		transform: rotate(0deg);
+	}
+
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+@keyframes bounce {
+	0% {
+		opacity: 0.5;
+		transform: translateY(0);
+	}
+
+	50% {
+		opacity: 0.5;
+		transform: translateY(-50px);
+	}
+
+	100% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes bounceOpposite {
+	0% {
+		opacity: 0;
+		transform: translateY(0);
+	}
+
+	50% {
+		opacity: 0.5;
+		transform: translateY(50px);
+	}
+
+	100% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes glow {
+    0% {
+        opacity: 0.5;
+        text-shadow: 0 0 10px #D4AF37;
+    }
+
+    50% {
+        opacity: 1;
+        text-shadow: 0 0 20px #D4AF37;
+    }
+
+    100% {
+        opacity: 0.5;
+        text-shadow: 0 0 10px #D4AF37;
+    }
+}
   
 body {
+    background-image: url("https://imgs.search.brave.com/J19TVnWHYDNQPusxKOxi_3S1VXEZbeNEaO-hkdskkOY/rs:fit:860:0:0/g:ce/aHR0cHM6Ly93YWxs/cGFwZXJzLmNvbS9p/bWFnZXMvZmVhdHVy/ZWQvYmxhY2stYWJz/dHJhY3QtbThrcjJo/ZnZyd2x0OGo1Zy5q/cGc");
     height: 100vh;
+    background-color: #00f4c6;
+    border-style: dashed;
+    font-family: 'Rubik Bubbles', cursive;
+    font-size: 25px;
     margin: 0;
-    font-family: 'Roboto Mono', monospace;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -13,83 +81,77 @@ body {
 }
 
 header {
-    font-size: 4vmin;
-    color: darkgray;
+    font-size: 10vmin;
+    color: #D4AF37;
     letter-spacing: 1vmin;
+    animation: bounce 2s ease-in-out infinite;
+    animation: glow 2s ease-in-out infinite alternate;
 }
 
-h1 {
-    color: grey;
+h2, h3{
+    color: #D4AF37;
     font-size: 3vmin;
 }
-  
 
-/* Tic Tac Toe Board */
+h2 {
+    animation: bounce 5s ease-in;;
+}
+  
 #board {
     display: grid;
     justify-content: center;
     align-content: center;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
-    gap: 5px;
     width: 300px;
     height: 300px;
     margin: 0 auto;
 }
 
-/* Tic Tac Toe Cells */
 #board > div {
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 48px;
     background-color: #fff;
-    border: 2px solid #000;
+    border: 5px solid #000;
     cursor: pointer;
+    border-top: none;
+    border-left: none;
+}
+
+#board > div:hover {
+    background-color: #D4AF37;
+    opacity: 0.8;
+    box-shadow: 10px 10px 10px #000;
 }
 
 #restart {
+    padding: 10px;
+    border-radius: 10px;
+    display: grid;
+    justify-content: center;
+    align-content: center;
     margin-top: 20px;
     font-size: 2vmin;
-    color: darkgray;
+    color: black;
     letter-spacing: 1vmin;
+    animation: glow 5s ease-in-out infinite;
 }
 
-.align {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+#restart:hover {
+    cursor: pointer;
+    background-color: #D4AF37;
+    opacity: 1.0;
+    box-shadow: 10px 10px 10px #000;
 }
 
-.turn-container {
-    height: 16%;
-    width: 22%;
-    margin-bottom: 3vmin;
+.player {
+    margin-top: 20px;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    position: relative;
-}
-
-.turn-container h3 {
-    font-size: 3vmin;
+    justify-content: left;
+    align-items: left;
+    font-size: 2vmin;
     color: darkgray;
     letter-spacing: 1vmin;
-    grid-column-start: 1;
-    grid-column-end: 3;
-}
-
-.turn-container .turn-box {
-    border: 2px solid black;
-    font-size: 2vmin;
-}
-
-.bg {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 90px;
-    height: 38px;
-    background-color: red;
-    z-index: -1;
 }

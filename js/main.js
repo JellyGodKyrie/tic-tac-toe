@@ -1,9 +1,28 @@
 /*----- constants -----*/
+const playerPoints = {
+    '1': 0
+}
+
+const cpuPoints = {
+    '-1': 0
+}
+
 const IDENTIFIERS = {
     '0': '',
     '1': 'X',
     '-1': 'O'
 };
+
+const winCombinations = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6]
+  ]
 
 /*----- state variables -----*/
 let turn;
@@ -11,10 +30,26 @@ let board;
 let winner;
 
 /*----- cached elements  -----*/
-const messageEl = document.querySelector('h1');
+const turnMessage = () => {
+    return `${IDENTIFIERS[turn]}'s Turn`
+}
+
+const tieMessage = () => {
+    return `It's a TIE! Break the deadlock!`
+}
+
+const winMessage = () => {
+    return `${IDENTIFIERS[winner]} Wins!`
+}
+
+const displayScore = document.querySelector('#display-scores');
+const messageEl = document.querySelector('h2');
 const playAgainBtn = document.querySelector('button');
 const boardEl = [...document.querySelectorAll('#board > div')];
-
+const playerScores = () => {
+    return `Player X: ${playerPoints['1']}<br>Player O: ${cpuPoints['-1']}`;
+};
+displayScore.innerHTML = playerScores();
 
 /*----- event listeners -----*/
 document.querySelector('#board').addEventListener('click', handleDrop);
@@ -44,11 +79,30 @@ function handleDrop(evt) {
     
     board[colIdx][rowIdx] = turn;
     turn *= -1;
+    checkWinner();
     render();
 }
 
-//check for winner 
-
+function checkWinner() {
+    for (let i = 0; i < winCombinations.length; i++) {
+        let sum = 0;
+        for (let j = 0; j < winCombinations[i].length; j++) {
+            sum += board[winCombinations[i][j] % 3][Math.floor(winCombinations[i][j] / 3)];
+        }
+        if (sum === 3) {
+            winner = 1;
+            playerPoints['1']++;
+            return;
+        } else if (sum === -3) {
+            winner = -1;
+            cpuPoints['-1']++;
+            return;
+        }
+    }
+    if (board[0][0] !== 0 && board[0][1] !== 0 && board[0][2] !== 0 && board[1][0] !== 0 && board[1][1] !== 0 && board[1][2] !== 0 && board[2][0] !== 0 && board[2][1] !== 0 && board[2][2] !== 0) {
+        winner = 'T';
+    }
+}
 
 function render() {
     renderBoard();
@@ -68,12 +122,18 @@ function renderBoard() {
 
 function renderMessage() {
     if (winner === 'T') {
-        messageEl.innerHTML = "It's a TIE!!";
-
+        messageEl.innerHTML = tieMessage();
     } else if (winner) {
-        messageEl.innerHTML = `${IDENTIFIERS[winner].toUpperCase()} Wins!`;
+        messageEl.innerHTML = winMessage();
+        if (winner === '1') {
+            // playerPoints['1']++;
+            displayScore.innerHTML = playerScores();
+        } else {
+            // playerPoints['-1']++;
+            displayScore.innerHTML = playerScores();
+        }
     } else {
-        messageEl.innerHTML = `${IDENTIFIERS[turn].toUpperCase()}'s Turn`;
+        messageEl.innerHTML = turnMessage();
     }
 }
 
@@ -85,10 +145,24 @@ function renderControls() {
     boardEl.forEach(function(cellEl) {
         cellEl.style.pointerEvents = winner ? 'none' : 'auto';
     })  
-
 }
 
-    
+function bestOfFive() {
+    if (playerPoints['1'] === 3) {
+        messageEl.innerHTML = `Player X Wins the Series ${playerPoints['1']} - ${cpuPoints['-1']}!`;
+        playerPoints['1'] = 0;
+        cpuPoints['-1'] = 0;
+        displayScore.innerHTML = playerScores();
+    } else if (cpuPoints['-1'] === 3) {
+        messageEl.innerHTML = `Player O Wins the Series ${cpuPoints['-1']} - ${playerPoints['1']}!`;
+        playerPoints['1'] = 0;
+        cpuPoints['-1'] = 0;
+        displayScore.innerHTML = playerScores();
+    }
+    restartGame();
+    render();
+}
 
-
-
+function restartGame() {
+    window.location.reload();
+};
